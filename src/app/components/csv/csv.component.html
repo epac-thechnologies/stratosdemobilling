@@ -1,0 +1,82 @@
+<div class="page-wrapper chiller-theme toggled">
+    <a id="show-sidebar" class="btn btn-sm btn-dark">
+        <i class="fa fa-bars fa-icons-color"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a [routerLink]="['/']">Stratos-Billing</a>
+                <!-- 
+                <div id="close-sidebar">
+                    <i class="fa fa-times"></i>
+                </div>
+                -->
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">{{ username }}
+            </span>
+                    <span class="user-role">Administrator</span>
+                    <span class="user-status">
+              <i class="fa fa-circle"></i>
+              <span>Online</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+
+                    <li routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">
+                        <a [routerLink]="['/dashboard']">
+                            <i class="fa fa-book"></i>
+                            <span>Home</span>
+                            <!-- 
+               <span class="badge badge-pill badge-primary">Beta</span>
+               -->
+                        </a>
+                    </li>
+                    <li routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}">
+                        <a [routerLink]="['/invoices']">
+                            <i class="fa fa-book"></i>
+                            <span>Invoices</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <a class="link-pointer" (click)="auth.logout()">
+                <i class="fa fa-power-off"></i>
+            </a>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <div class="container-fluid">
+            <h1 style="color: #0a3d62;" class="text-center">Stratos Billing</h1>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <router-outlet></router-outlet>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- Container   -->
+
+    </main>
+    <!-- page-content" -->
+</div>
+<!-- page-wrapper -->

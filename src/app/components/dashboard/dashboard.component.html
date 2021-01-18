@@ -1,0 +1,47 @@
+
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <span class="ui-inputgroup-addon">Clients &nbsp;</span>
+                <p-dropdown [options]="clients" [(ngModel)]="selectedClient"></p-dropdown>
+            </div>
+            <div class="col-md-4 row">
+                <span class="ui-inputgroup-addon">Start Date &nbsp;</span>
+                <p-calendar [(ngModel)]="dateD" showIcon="true" icon="fa fa-calendar" dateFormat="yy/mm/dd"></p-calendar>
+            </div>
+            <div class="col-md-4 row">
+                <span class="ui-inputgroup-addon">End Date &nbsp;</span>
+                <p-calendar [(ngModel)]="dateF" showIcon="true" icon="fa fa-calendar" dateFormat="yy/mm/dd"></p-calendar>
+            </div>
+            <div class="col-md-1">
+                <span class="ui-inputgroup-addon"> &nbsp;</span>
+
+                <button [disabled]="selectedClient === undefined || dateD === undefined || dateF === undefined" (click)="searchOrders()" pButton type="button" label="Search" icon="fa fa-search"></button>
+            </div>
+
+
+
+        </div>
+        <div *ngIf="1 > rowData.length">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>            
+            <div class="alert alert-primary text-center" role="alert">
+                Please select search criteria from the filter above!
+            </div>
+        </div>
+
+
+        <div *ngIf="rowData.length >= 1">
+            <app-datatable [columnDefs]="columnDefs" [rowData]="rowData" [sDate]="sDate" [clientId]="selectedClient" [fDate]="fDate" [clientId]="clientId"></app-datatable>
+        </div>
+    </div>
+

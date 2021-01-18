@@ -1,0 +1,47 @@
+
+<br><hr><br>
+<div class="row">
+
+    <div class="col-md-2">
+        <button class="btn btn-success float-right" (click)="generateInvoice()">Generate Invoice</button>
+    </div>
+</div>
+
+<br>
+<p-table #dt [columns]="columnDefs" [value]="rowData" rowHover="true" [(selection)]="selectedData" [paginator]="true" [rows]="25">
+    <ng-template pTemplate="caption">
+        <div style="text-align: center">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData" style="height: 50px;">
+            <td>
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        selected data :
+        <ul>
+            <li *ngFor="let row of selectedData" style="text-align: left">
+                {{row.poNumber + ' - '+ row.packing_slips_id + ' - ' + row.isbn + ' - ' + row.title + ' - ' + row.price+'$'}}
+            </li>
+        </ul>
+    </ng-template>
+</p-table>

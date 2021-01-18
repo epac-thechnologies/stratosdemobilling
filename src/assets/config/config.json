@@ -1,0 +1,8 @@
+{
+    "Api_Base": "http://service.pacet.mx",
+    "Api_Security": "http://security.pacet.mx",
+    "Api_BillingForPacex": "http://billingForPacex.mx",
+    "Api_microservice_order": "http://epac.orderservice.mx:8011",
+    "Api_microservice_archive": "http://epac.shippingarchive.mx:8022",
+    "Mode": "pacex"
+}
