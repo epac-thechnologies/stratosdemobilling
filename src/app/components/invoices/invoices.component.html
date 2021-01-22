@@ -1,4 +1,4 @@
-<p-table #dt [columns]="columnDefs" [value]="rowData" [paginator]="true" [rows]="2" [totalRecords]="totalRecords" [lazy]='true' (onLazyLoad)="loadData($event)" (onPage)="getNewPage($event)" [loading]="false" >
+<p-table #dt [columns]="columnDefs" [value]="rowData" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [lazy]='true' (onLazyLoad)="loadData($event)" (onPage)="getNewPage($event)" [loading]="false" >
     <!--
     <ng-template pTemplate="caption">
         <div style="text-align: center">

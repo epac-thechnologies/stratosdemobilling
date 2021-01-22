@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
   validate(loginFormValue: any) {
-
+    this.router.navigate(['/dashboard']);
+/*
     this.auth.requestToken(loginFormValue.username, loginFormValue.password).subscribe(
       status => {
         if (status) {
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
       }
     );
 
-
+*/
   }
 
 }

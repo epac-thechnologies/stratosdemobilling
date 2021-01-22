@@ -9,6 +9,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,6 +29,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { InvoicesComponent } from './components/invoices/invoices.component';
 import { ConfirmationService } from 'primeng/api';
 import {TooltipModule} from 'primeng/tooltip';
+import { ClientsComponent } from './components/clients/clients.component';
 
 
  
@@ -46,6 +48,7 @@ export function ConfigLoader(cfg: ConfigurationService) {
     CsvComponent,
     DatatableComponent,
     InvoicesComponent,
+    ClientsComponent,
   ],
   imports: [
     BrowserModule,

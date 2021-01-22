@@ -67,7 +67,7 @@ export class AuthenticationService {
     if (this.tokenStorage.getAccessToken() == null) {
       console.log('not logged : go to /login');
       
-      this.router.navigate(['/login']);
+   //   this.router.navigate(['/login']);
       return false;
     } else {
       return true;

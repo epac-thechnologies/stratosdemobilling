@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
   // endpoints
-  private orderSerivce = 'http://192.168.75.215:7777/CLIENT-SERVICE';
+  private orderSerivce = 'http://13.49.149.211:8022/CLIENT-SERVICE';
 
   private eventEmitter: EventEmitter<any> = new EventEmitter<any>();
  
@@ -23,20 +23,20 @@ export class DataService {
     }
 
     public getClients(){
-      return this.http.get("http://192.168.30.41:8083/clients");
+      return this.http.get("http://13.49.149.211:8022/clients");
     }
     
 
 public getInvoices(criteria){
-  return this.http.get("http://192.168.75.215:7777/ARCHIVE-BILLING-SERVICE"+`/invoices/${criteria.page}/${criteria.count}` );
+  return this.http.get("http://13.49.149.211:8022"+`/invoices/${criteria.page}/${criteria.count}` );
 }
 
 public addInvoice(invoice){
-  return this.http.post("http://192.168.75.215:7777/ARCHIVE-BILLING-SERVICE"+"/invoice" ,invoice );
+  return this.http.post("http://13.49.149.211:8022"+"/invoice" ,invoice );
 }
 
 public cancelInvoice(invoiceId){
-  return this.http.get("http://192.168.75.215:7777/ARCHIVE-BILLING-SERVICE"+`/annulerfacture/${invoiceId}` );
+  return this.http.get("http://13.49.149.211:8022"+`/annulerfacture/${invoiceId}` );
 }
 
 public getEventObservable(){
@@ -57,9 +57,23 @@ private getHeaders() : HttpHeaders {
 
 searchOrders(filterData){
 
-  return this.http.get("http://192.168.75.215:7777/ARCHIVE-BILLING-SERVICE"+`/findOrdresbetween/${filterData.clientId}/${filterData.startDate}/${filterData.endDate}`).pipe(
+  return this.http.get("http://13.49.149.211:8022"+`/findOrdresbetween/${filterData.clientId}/${filterData.startDate}/${filterData.endDate}`).pipe(
     map((data) => data )
     );
+}
+
+
+getClientsData(){
+  return this.http.get(`http://13.49.149.211:8022/clients` );
+}
+addClient(client){
+  return this.http.post(`http://13.49.149.211:8022/addClient`, client);
+}
+editClient(client){
+  return this.http.post(`http://13.49.149.211:8022/addClient`, client);
+}
+deleteClient(clientId){
+  return this.http.get(`http://13.49.149.211:8022/deleteClient/${clientId}` );
 }
 
 }

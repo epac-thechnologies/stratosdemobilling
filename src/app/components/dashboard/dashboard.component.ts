@@ -12,8 +12,8 @@ export class DashboardComponent implements OnInit {
   columnDefs = [
     { header: 'PO#', field: 'poNumber', sortable: true, filter: true },
     { header: 'PS#', field: 'packing_slips_id', sortable: true, filter: true },
-    { header: 'ISBN', field: 'isbn', sortable: true, filter: true },
-    { header: 'Title', field: 'title', sortable: true, filter: true },
+    { header: 'Product', field: 'isbn', sortable: true, filter: true },
+   // { header: 'Title', field: 'title', sortable: true, filter: true },
     {
       header: 'Requested Qty',
       field: 'quantity',
@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
         tab.push(client);
       });
       tab.forEach((element) => {
-        this.clients.push({ label: element.clientId, value: element.clientId });
+        this.clients.push({ label: element.firstName, value: element.firstName});
       });
       console.log(this.clients);
     });
@@ -82,6 +82,8 @@ export class DashboardComponent implements OnInit {
       startDate: startDate,
       endDate: endDate,
     };
+    console.log('filter data',filterData);
+    
     this.dataService.searchOrders(filterData).subscribe(
       (res: []) => {
         console.log('result', res);

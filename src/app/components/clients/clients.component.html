@@ -1,0 +1,160 @@
+<div class="container">
+    <button style="position: relative;float: right;" (click)="openAddClient()" class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#addModal">Add Client <i class="fa fa-plus"></i></button>
+</div>
+<br>
+<br>
+<p-table #dt [columns]="columnDefs" [value]="rowData" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo" >
+<ng-template pTemplate="caption">
+    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+</ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <!-- 
+                [totalRecords]="totalRecords" [lazy]='true' (onLazyLoad)='loadPatientLazy($event)' (onPageChange)='getNewPage()' [loading]="true"
+           
+            -->
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+            <th>Actions </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData" style="height: 50px;">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <button (click)="openEditClient(rowData)" class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></button>
+                &nbsp;
+                <button (click)="deleteClient(rowData)" class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash"></i></button>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+  
+  <!-- edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Client</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="clientForm">
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label >Name</label>
+                    <input formControlName="name" type="text" class="form-control"  placeholder="Name"  [ngClass]="{ 'is-invalid': clientForm.get('name').hasError('required') && clientForm.get('name').touched }">
+                  </div>
+                  <div class="form-group col-6">
+                    <label >Firstname</label>
+                    <input formControlName="firstName" type="text" class="form-control"  placeholder="Firstname" [ngClass]="{ 'is-invalid': clientForm.get('firstName').hasError('required') && clientForm.get('firstName').touched }">
+                  </div>
+
+                <div class="form-group col-12">
+                  <label >Address</label>
+                  <input formControlName="postalAddresses" type="text" class="form-control"  placeholder="1234 Main St..." [ngClass]="{ 'is-invalid': clientForm.get('postalAddresses').hasError('required') && clientForm.get('postalAddresses').touched }">
+                </div>
+                <div class="form-group col-6">
+                    <label >Phone</label>
+                    <input formControlName="phone" type="number" class="form-control"  placeholder="Phone" [ngClass]="{ 'is-invalid': clientForm.get('phone').hasError('required') && clientForm.get('phone').touched }">
+                  </div>
+                  <div class="form-group col-6">
+                    <label >Email</label>
+                    <input formControlName="email" type="email" class="form-control"  placeholder="Email" [ngClass]="{ 'is-invalid': (clientForm.get('email').hasError('email') || clientForm.get('email').hasError('required')) && clientForm.get('email').touched }">
+                  </div>
+                  <div class="form-group col-4">
+                    <label >Fiscal Position</label>
+                    <input formControlName="fiscalPosition" type="text" class="form-control"  placeholder="Fiscal position" [ngClass]="{ 'is-invalid': clientForm.get('fiscalPosition').hasError('required') && clientForm.get('fiscalPosition').touched }">
+                  </div>
+                  <div class="form-group col-4">
+                    <label >Currency</label>
+                    <input formControlName="currency" type="text" class="form-control"  placeholder="Currency" [ngClass]="{ 'is-invalid': clientForm.get('currency').hasError('required') && clientForm.get('currency').touched }">
+                  </div>
+                  <div class="form-group col-4">
+                    <label >Shipment Mode</label>
+                    <select formControlName="shipmentMode" class="form-control" [ngClass]="{ 'is-invalid': clientForm.get('shipmentMode').hasError('required') && clientForm.get('shipmentMode').touched }">
+                        <option value="Pallet">Pallet</option>
+                        <option value="Container">Container</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button data-dismiss="modal" [disabled]="clientForm.invalid" (click)="editClient()" type="button" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- addd Modal -->
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Client</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="clientForm">
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label >Name</label>
+                    <input formControlName="name" type="text" class="form-control"  placeholder="Name"  [ngClass]="{ 'is-invalid': clientForm.get('name').hasError('required') && clientForm.get('name').touched }">
+                  </div>
+                  <div class="form-group col-6">
+                    <label >Firstname</label>
+                    <input formControlName="firstName" type="text" class="form-control"  placeholder="Firstname" [ngClass]="{ 'is-invalid': clientForm.get('firstName').hasError('required') && clientForm.get('firstName').touched }">
+                  </div>
+
+                <div class="form-group col-12">
+                  <label >Address</label>
+                  <input formControlName="postalAddresses" type="text" class="form-control"  placeholder="1234 Main St..." [ngClass]="{ 'is-invalid': clientForm.get('postalAddresses').hasError('required') && clientForm.get('postalAddresses').touched }">
+                </div>
+                <div class="form-group col-6">
+                    <label >Phone</label>
+                    <input formControlName="phone" type="number" class="form-control"  placeholder="Phone" [ngClass]="{ 'is-invalid': clientForm.get('phone').hasError('required') && clientForm.get('phone').touched }">
+                  </div>
+                  <div class="form-group col-6">
+                    <label >Email</label>
+                    <input formControlName="email" type="email" class="form-control"  placeholder="Email" [ngClass]="{ 'is-invalid': (clientForm.get('email').hasError('email') || clientForm.get('email').hasError('required')) && clientForm.get('email').touched }">
+                  </div>
+                  <div class="form-group col-4">
+                    <label >Fiscal Position</label>
+                    <input formControlName="fiscalPosition" type="text" class="form-control"  placeholder="Fiscal position" [ngClass]="{ 'is-invalid': clientForm.get('fiscalPosition').hasError('required') && clientForm.get('fiscalPosition').touched }">
+                  </div>
+                  <div class="form-group col-4">
+                    <label >Currency</label>
+                    <input formControlName="currency" type="text" class="form-control"  placeholder="Currency" [ngClass]="{ 'is-invalid': clientForm.get('currency').hasError('required') && clientForm.get('currency').touched }">
+                  </div>
+                  <div class="form-group col-4">
+                    <label >Shipment Mode</label>
+                    <select formControlName="shipmentMode" class="form-control" [ngClass]="{ 'is-invalid': clientForm.get('shipmentMode').hasError('required') && clientForm.get('shipmentMode').touched }">
+                        <option value="Pallet">Pallet</option>
+                        <option value="Container">Container</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button data-dismiss="modal" [disabled]="clientForm.invalid" (click)="addClient()" type="button" class="btn btn-primary">Save Client</button>
+        </div>
+      </div>
+    </div>
+  </div>

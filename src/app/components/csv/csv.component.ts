@@ -9,9 +9,9 @@ import * as $ from 'jquery';
   styleUrls: ['./csv.component.scss']
 })
 export class CsvComponent implements OnInit {
-  username: string;
+  username: string = '';
   constructor(public auth: AuthenticationService, private tokenStorage: TokenStorage) {
-    this.initUser();
+ //   this.initUser();
   }
 
   ngOnInit() {
